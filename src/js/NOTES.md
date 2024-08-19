@@ -1,0 +1,16 @@
+# TẠI SAO TA LẠI CẦN MỘT KIẾN TRÚC KHI XÂY DỰNG PHẦN MỀM?
+- [First] Kiến trúc sẽ cung cấp cho chúng dự án của chúng ta cấu trúc mà sau đó chúng ta có thể viết code. Nó giống như một ngôi nhà, phần mềm cũng cần một cấu trúc. Thì về cơ bản "structure" nghĩa là cách mà chúng ta tổ chức và phân chia code vào trong các module, class, function khác nhau. Và tất cả những thứ này sẽ giữ code của chúng ta lại với nhau và giúp nó có kết cấu hơn
+- [Second] Lý do tiếp theo là việc bảo trì. Khi mà build một project thì phải luôn nghĩ đến tương lai và phải luôn nghĩ trong đầu là dự án thì không bao giờ thật sự hoàn thành. Chúng ta luôn cần thay đổi nó trong tương lai và mày cần phải maintain nó
+**Và điều đó chỉ hoạt động nếu dự án của ta được structure tốt**
+- [Third] Tiếp theo là nếu chúng ta muốn thêm một features mới vào dự án, điều này đưa chú  ng ta đến cái gọi là khả năng mở rộng (*expandability*). Expandability về cơ bản là khả năng để thêm vào một features mới trong tương lai. Và một lần nữa để làm được điều này thì phải có một structure tốt và một kiến trúc tổng thể
+## Có một vài thành phần mà bất kỳ kiến trúc nào cũng phải có:
+- Business logic, state, HTTP library, application logic(Router), presentation logic(UI layer)
+- [Busines-logic]: Về cơ bản là tất cả code được giải quyết vấn đề nghiệp vụ thực sự
+- [State]: Đây là một trong những aspect quan trọng nhất của bất kỳ dự án web app nào. Application state là lưu trữ những gì mà tất cả dữ liệu về ứng dụng một cách cần thiết để chạy trong browser. State nên được lưu trữ bất kỳ dữ liệu nào cái mà bạn có thể fetch từ một API hoặc dữ liệu mà users nhập vào, hoặc những page mà user đang xem. *Và những data này nên được gọi từ một nguồn duy nhất, cái được giữ bên trong việc đồng bộ với UI*. Điều này có nghĩa là nếu một vài data thay đổi trong state thì sau đó UI cũng reflect theo. Và tương tự nếu somethings thay đổi trong UI thì state cũng nên thay đổi. Bây giờ lưu trữ và display data và giữ cho mọi thứ đồng bộ là một trong những công việc khó nhất khi xây dựng web app. Nên đó là lý do tại sao có nhiều state management lib như Redux hoặc MobX
+- [HTTP-library]: Về cơ bản thì chịu trách nhiệm chính cho việc making và receiving AJAX requests.
+- [Application-logic]: handles navigation và UI envents
+- [Presentation-logic]: Chịu trách nhiệm cho việc display application state on UI, để giữ mọi thứ đồng bộ
+**Ta sẽ đi tới architecture MVC(Models, views, controller)**
+- *View*: phần này tất nhiên là cho presentation logic, nó là một phần của việc tương tác ứng dụng với người dùng
+- *Models*: là tất cả về dữ liệu của app, và vì vậy đó là lý do nó thường chứa state và cũng như logic nghiệp vụ để vận dụng cho state thế nên hai cái này được giữ gần với nhau. Model cũng chưa HTTP library cái mà có thể get một vài data từ web
+- *Controller*: Chứa các application logic, và nó nằm giữa model và view, nó tạo ra cầu nối giữa model và view. Vì vậy mà model và view sẽ tồn tại hoàn toàn độc lập nhau và thậm chí không biết đến sự tồn tại của nhau. Và trong thực tế thì big goals của MVC là tách Business logic ra khỏi application logic
